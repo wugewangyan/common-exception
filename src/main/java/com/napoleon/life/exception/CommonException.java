@@ -13,37 +13,30 @@ public class CommonException extends RuntimeException {
 		this.errChineseMsg = chineseMsg;
 	}
 	
-	public CommonException(CommonResultCode exceptionEnum){
-		this(exceptionEnum.getCode(), exceptionEnum.getMessage(), exceptionEnum.getChineseMessage());
-	}
-	
-	public CommonException(CommonResultCode exceptionEnum, String errChineseMsg){
-		this(exceptionEnum.getCode(), errChineseMsg, errChineseMsg);
-	}
-	
 	public CommonException(String errCode, String errChineseMsg){
 		this(errCode, errChineseMsg, errChineseMsg);
 	}
 	
-	public CommonException(Throwable cause){
-		super(cause);
-		this.errCode = CommonResultCode.SYSTEM_ERR.getCode();
-		this.errChineseMsg = CommonResultCode.SYSTEM_ERR.getChineseMessage();
+	public CommonException(ModelCodeInterface exceptionEnum){
+		this(exceptionEnum.getCode(), exceptionEnum.getMessage(), exceptionEnum.getChineseMessage());
 	}
 	
-	public CommonException(String errChineseMsg, Throwable cause){
-		super(errChineseMsg, cause);
-		this.errCode = CommonResultCode.SYSTEM_ERR.getCode();
-		this.errChineseMsg = errChineseMsg;
-	}
-	
-	
-	public CommonException(String message){
-		super(message);
-		this.errCode = CommonResultCode.SYSTEM_ERR.getCode();
+	public CommonException(ModelCodeInterface exceptionEnum, String message){
+		this.errCode = exceptionEnum.getCode();
 		this.errChineseMsg = message;
 	}
 	
+	public CommonException(ModelCodeInterface exceptionEnum, Throwable cause){
+		super(cause);
+		this.errCode = exceptionEnum.getCode();
+		this.errChineseMsg = exceptionEnum.getChineseMessage();
+	}
+	
+	public CommonException(ModelCodeInterface exceptionEnum, Throwable cause, String message){
+		super(cause);
+		this.errCode = exceptionEnum.getCode();
+		this.errChineseMsg = message;
+	}
 
 	public String getErrCode() {
 		return errCode;
